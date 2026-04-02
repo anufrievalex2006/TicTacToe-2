@@ -45,7 +45,7 @@ export const Board = ({opponent, onGameEnd}: BoardProps) => {
             hasEnded.current = true
             const timer = setTimeout(() => {
                 onGameEnd(res!)
-            }, 700)
+            }, 100)
             return () => clearTimeout(timer)
         }
     }, [res, onGameEnd])
