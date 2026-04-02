@@ -39,6 +39,11 @@ public class UserService {
     public void delete(String id) {
         repo.deleteById(id);
     }
+    public void addPoints(String id, int points) {
+        User u = repo.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        u.setPoints(u.getPoints() + points);
+        repo.save(u);
+    }
 
     private UserResponse convertToResponse(User user) {
         UserResponse res = new UserResponse();

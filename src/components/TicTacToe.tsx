@@ -1,9 +1,16 @@
 import { Button, Group, Stack, Title } from "@mantine/core"
-import { useState } from "react"
+import { useEffect, useState, useRef } from "react"
+import type { User } from "../models/user"
 
 interface SquareProps {
-    value: number
+    value: string | null
     onSquareClick: () => void
+}
+
+interface BoardProps {
+    opponent?: User
+    curUserId?: string
+    onGameEnd?: (result: "win" | "draw" | "loss") => void
 }
 
 const Square = ({value, onSquareClick}: SquareProps) => {
@@ -12,23 +19,42 @@ const Square = ({value, onSquareClick}: SquareProps) => {
     )
 }
 
-export const Board = () => {
+export const Board = ({opponent, curUserId, onGameEnd}: BoardProps) => {
     const [isXNext, setIsXNext] = useState(true)
     const [squares, setSquares] = useState(Array(9).fill(null))
-    function handleClick(i: number) {
-        if (squares[i])
-            return
+    const hasEnded = useRef(false)
 
-        const next = squares.slice()
-        if (isXNext) next[i] = "X"
-        else next[i] = "O"
+    const contestant = opponent?.name || "Оппонент"
+    function handleClick(i: number) {
+        if (squares[i] !== null) return
+        if (calculateWinner(squares) !== null) return
+
+        const next = [...squares]
+        next[i] = isXNext ? "X" : "O"
         setSquares(next)
         setIsXNext(!isXNext)
     }
     const winner = calculateWinner(squares)
-    let status
-    if (winner) status = (winner === "X") ? "Вы победили!" : "Оппонент победил"
-    else status = `Сейчас ход: ${isXNext ? "Ваш" : "оппонента"}`
+    const isDraw = !winner && squares.every(c => c !== null)
+
+    let res: "win" | "draw" | "loss" | null = null
+    if (winner) res = (winner === "X") ? "win" : "loss"
+    else if (isDraw) res = "draw"
+
+    useEffect(() => {
+        if (res && onGameEnd && !hasEnded.current) {
+            hasEnded.current = true
+            const timer = setTimeout(() => {
+                onGameEnd(res!)
+            }, 700)
+            return () => clearTimeout(timer)
+        }
+    }, [res, onGameEnd])
+
+    let status = ""
+    if (winner) status = (winner === "X") ? "Вы победили!" : `${contestant} победил`
+    else if (isDraw) status = "Ничья!"
+    else status = `Сейчас ход: ${isXNext ? "Ваш" : contestant}`
     return (
         <>
             <Title order={2} ta="center" mb="md">{status}</Title>

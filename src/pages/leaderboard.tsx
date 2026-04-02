@@ -11,8 +11,7 @@ export const LeaderboardPage = () => {
         queryFn: async () => {
             const res = await api.get<User[]>("/users")
             return res.data
-        },
-        staleTime: 60*1000
+        }
     })
     return (
         <Box mih="100vh">
@@ -39,7 +38,9 @@ export const LeaderboardPage = () => {
                             </Table.Thead>
                             <Table.Tbody>
                                 {users.sort((a,b) => b.points - a.points).map((u,i) => (
-                                    <Table.Tr>
+                                    <Table.Tr key={u.id} bg={
+                                        (i === 0) ? "gold" : (i === 1) ? "gray" : (i === 2) ? "orange" : "white"
+                                    }>
                                         <Table.Td>{i + 1}</Table.Td>
                                         <Table.Td>{u.name}</Table.Td>
                                         <Table.Td>{u.points}</Table.Td>

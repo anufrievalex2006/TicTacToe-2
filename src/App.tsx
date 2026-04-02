@@ -6,6 +6,7 @@ import { MainPage } from './pages/main'
 import { ProfilePage } from './pages/profile'
 import { LeaderboardPage } from './pages/leaderboard'
 import { TrainPage } from './pages/train'
+import { BattlePage } from './pages/battle'
 
 export default function App() {
     return (
@@ -15,6 +16,7 @@ export default function App() {
             <Route path="/profile" element={<ProtectedRoute><ProfilePage></ProfilePage></ProtectedRoute>}></Route>
             <Route path="/leaderboard" element={<ProtectedRoute><LeaderboardPage></LeaderboardPage></ProtectedRoute>}></Route>
             <Route path="/train" element={<ProtectedRoute><TrainPage></TrainPage></ProtectedRoute>}></Route>
+            <Route path="/practice" element={<ProtectedRoute><BattlePage></BattlePage></ProtectedRoute>}></Route>
             <Route path="/" element={<ProtectedRoute><MainPage></MainPage></ProtectedRoute>}></Route>
             <Route path="*" element={<div>This page does not exist</div>}></Route>
         </Routes>

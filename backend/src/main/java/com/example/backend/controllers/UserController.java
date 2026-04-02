@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -33,6 +34,12 @@ public class UserController {
     public ResponseEntity<UserResponse> getProfile(@RequestHeader("Authorization") String header) {
         String nick = authService.validateGetNickname(header);
         return ResponseEntity.ok(service.getByNickname(nick));
+    }
+    @PostMapping("/{id}/points")
+    public ResponseEntity<Void> addPoints(@PathVariable String id, @RequestBody Map<String, Integer> body) {
+        int points = body.getOrDefault("points", 0);
+        service.addPoints(id, points);
+        return ResponseEntity.ok().build();
     }
     @PutMapping("/{id}")
     public ResponseEntity<UserResponse> update(@PathVariable String id, @RequestBody UserUpdateDto req) {
