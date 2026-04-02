@@ -3,14 +3,12 @@ import { Header } from "../components/header"
 import { useQuery } from "@tanstack/react-query"
 import type { User } from "../models/user"
 import { api } from "../api/axiosInstance"
-import { useNavigate, useSearchParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState } from "react"
-import { notifications } from "@mantine/notifications"
 
 export const MainPage = () => {
     const nav = useNavigate()
     const [opponent, setOpponent] = useState<User | null>(null)
-    const [isFinding, setIsFinding] = useState(false)
     const [modalOpened, setModalOpened] = useState(false)
     const {data: user, isLoading, isError} = useQuery<User>({
         queryKey: ["profile"],
@@ -21,7 +19,7 @@ export const MainPage = () => {
         enabled: !!localStorage.getItem("token"),
         retry: false
     })
-    const {data: allUsers = [], isLoading: areUsersLoading, isError: isUsersError} = useQuery<User[]>({
+    const {data: allUsers = []} = useQuery<User[]>({
         queryKey: ["users"],
         queryFn: async () => {
             const res = await api.get<User[]>("/users")
@@ -32,12 +30,8 @@ export const MainPage = () => {
     const chooseOpponent = () => {
         if (!user || allUsers.length === 0) return
 
-        setIsFinding(true)
-        setTimeout(() => {
-            setOpponent(allUsers[Math.floor(Math.random() * allUsers.length)])
-            setModalOpened(true)
-            setIsFinding(false)
-        }, 250)
+        setOpponent(allUsers[Math.floor(Math.random() * allUsers.length)])
+        setModalOpened(true)
     }
     const start = () => {
         if (!opponent || !user) return

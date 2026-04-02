@@ -81,7 +81,7 @@ export const BattlePage = () => {
                         <Title order={1} c="blue">{contestant.name}</Title>
                     </Group>
                     <Container p={40}>
-                        <Board opponent={contestant} curUserId={myId} onGameEnd={onGameEnd}></Board>
+                        <Board opponent={contestant} onGameEnd={onGameEnd}></Board>
                     </Container>
                     <Modal title="Игра завершена" centered size="md" opened={showResultModal} onClose={goToMain}>
                         {gameResult && (

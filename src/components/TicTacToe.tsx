@@ -9,7 +9,6 @@ interface SquareProps {
 
 interface BoardProps {
     opponent?: User
-    curUserId?: string
     onGameEnd?: (result: "win" | "draw" | "loss") => void
 }
 
@@ -19,7 +18,7 @@ const Square = ({value, onSquareClick}: SquareProps) => {
     )
 }
 
-export const Board = ({opponent, curUserId, onGameEnd}: BoardProps) => {
+export const Board = ({opponent, onGameEnd}: BoardProps) => {
     const [isXNext, setIsXNext] = useState(true)
     const [squares, setSquares] = useState(Array(9).fill(null))
     const hasEnded = useRef(false)
