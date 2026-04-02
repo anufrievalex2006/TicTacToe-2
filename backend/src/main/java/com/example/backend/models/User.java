@@ -17,7 +17,7 @@ public class User {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
-    private LocalDateTime birthday;
+    private String birthday;
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -26,7 +26,7 @@ public class User {
     @Column(nullable = false)
     private String passwordHash;
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private String createdAt;
     @Column(nullable = false)
     private int points;
 
@@ -36,6 +36,6 @@ public class User {
         if (id == null)
             id = UUID.randomUUID().toString();
         if (createdAt == null)
-            createdAt = LocalDateTime.now();
+            createdAt = LocalDateTime.now().toString();
     }
 }

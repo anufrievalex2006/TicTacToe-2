@@ -7,8 +7,9 @@ import java.time.LocalDateTime;
 
 @Data
 public class UserResponse {
+    private String id;
     private String name;
-    private LocalDateTime birthday;
+    private String birthday;
     private Gender gender;
     private String nickname;
     private int points;

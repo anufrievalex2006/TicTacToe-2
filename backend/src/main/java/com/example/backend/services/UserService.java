@@ -23,6 +23,11 @@ public class UserService {
     public UserResponse getById(String id) {
         return convertToResponse(repo.findById(id).orElseThrow());
     }
+    public UserResponse getByNickname(String nickname) {
+        User u = repo.findByNickname(nickname)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return convertToResponse(u);
+    }
     public UserResponse update(String id, UserUpdateDto req) {
         User u = repo.findById(id).orElseThrow();
         u.setName(req.getName());
@@ -37,6 +42,7 @@ public class UserService {
 
     private UserResponse convertToResponse(User user) {
         UserResponse res = new UserResponse();
+        res.setId(user.getId());
         res.setName(user.getName());
         res.setBirthday(user.getBirthday());
         res.setGender(user.getGender());

@@ -2,6 +2,7 @@ package com.example.backend.controllers;
 
 import com.example.backend.dtos.requests.UserUpdateDto;
 import com.example.backend.dtos.responses.UserResponse;
+import com.example.backend.services.AuthService;
 import com.example.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +14,11 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService service;
+    private final AuthService authService;
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserService service, AuthService authService) {
         this.service = service;
+        this.authService = authService;
     }
 
     @GetMapping
@@ -25,6 +28,11 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getById(@PathVariable String id) {
         return ResponseEntity.ok(service.getById(id));
+    }
+    @GetMapping("/profile")
+    public ResponseEntity<UserResponse> getProfile(@RequestHeader("Authorization") String header) {
+        String nick = authService.validateGetNickname(header);
+        return ResponseEntity.ok(service.getByNickname(nick));
     }
     @PutMapping("/{id}")
     public ResponseEntity<UserResponse> update(@PathVariable String id, @RequestBody UserUpdateDto req) {
