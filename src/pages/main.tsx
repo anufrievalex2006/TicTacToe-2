@@ -3,8 +3,10 @@ import { Header } from "../components/header"
 import { useQuery } from "@tanstack/react-query"
 import type { User } from "../models/user"
 import { api } from "../api/axiosInstance"
+import { useNavigate } from "react-router-dom"
 
 export const MainPage = () => {
+    const nav = useNavigate()
     const {data: user, isLoading, isError} = useQuery<User>({
         queryKey: ["profile"],
         queryFn: async () => {
@@ -29,7 +31,7 @@ export const MainPage = () => {
                     <Paper p="lg" bg="#f6f6fb" mt="xl" withBorder shadow="md">
                         <Title order={2} mb="md">У вас - {user.points} очков</Title>
                         <Stack gap="md">
-                            <Button bg="gray">Потренироваться</Button>
+                            <Button bg="gray" onClick={() => nav("/train")}>Потренироваться</Button>
                             <Button bg="green">Участвовать в баттле</Button>
                         </Stack>
                     </Paper>
