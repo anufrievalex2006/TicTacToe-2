@@ -1,4 +1,4 @@
-import { Box, Button, Container, Group, Paper, PasswordInput, Select, Stack, TextInput, Title } from "@mantine/core"
+import { Box, Button, Container, Group, Paper, PasswordInput, Select, Stack, Text, TextInput, Title } from "@mantine/core"
 import { DateInput } from "@mantine/dates"
 import { Header } from "../components/header"
 import { useNavigate } from "react-router-dom"
@@ -71,6 +71,9 @@ export const RegisterPage = () => {
                             </Group>
                             <TextInput {...form.register("nickname")} label="Никнейм" c="dimmed"></TextInput>
                             <PasswordInput {...form.register("password")} label="Пароль" c="dimmed"></PasswordInput>
+                            {serverError && (
+                                <Text c="red" fw={700}>{serverError}</Text>
+                            )}
                             <Button type="submit">Зарегистрироваться</Button>
                         </Stack>
                     </Paper>
