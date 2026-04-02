@@ -27,7 +27,7 @@ export const LeaderboardPage = () => {
                     <Paper bg="#f6f6fb" p="lg">
                         <Title order={2} ta="center">Таблица лидеров</Title>
                         <Text ta="center" fw={700} mb="xl">по данным на {dayjs().format("DD.MM.YYYY, HH:mm:ss")}</Text>
-                        <Table withColumnBorders withTableBorder bg="white">
+                        <Table withColumnBorders withTableBorder bg="white" style={{fontSize: "20px"}}>
                             <Table.Thead>
                                 <Table.Tr>
                                     <Table.Th>№</Table.Th>
