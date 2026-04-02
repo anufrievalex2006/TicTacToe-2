@@ -10,11 +10,13 @@ import type { TokenResponse } from "../models/auth"
 import dayjs from "dayjs"
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { useState } from "react"
+import { useQueryClient } from "@tanstack/react-query"
 
 dayjs.extend(customParseFormat);
 
 export const RegisterPage = () => {
     const nav = useNavigate()
+    const queryClient = useQueryClient()
     const [serverError, setServerError] = useState<string | null>(null)
     const form = useForm<RegisterFormValues>({
         defaultValues: ({
@@ -32,6 +34,9 @@ export const RegisterPage = () => {
             const res = await api.post<TokenResponse>("/register", data)
             const token = res.data.token
             localStorage.setItem("token", token)
+            queryClient.invalidateQueries({
+                queryKey: ["profile"]
+            })
             nav("/")
         }
         catch (error: any) {

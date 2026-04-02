@@ -30,7 +30,9 @@ export const ProfilePage = () => {
         queryFn: async () => {
             const res = await api.get<User>("/users/profile")
             return res.data
-        }
+        },
+        enabled: !!localStorage.getItem("token"),
+        retry: false
     })
     useEffect(() => {
         if (profile) {
@@ -48,9 +50,6 @@ export const ProfilePage = () => {
             await api.put(`/users/${profile?.id}`, data)
             queryClient.invalidateQueries({
                 queryKey: ["profile"]
-            })
-            queryClient.invalidateQueries({
-                queryKey: ["user"]
             })
         }
         catch (error: any) {

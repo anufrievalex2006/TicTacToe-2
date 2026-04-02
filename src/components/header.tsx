@@ -12,6 +12,7 @@ export const Header = () => {
             const res = await api.get<User>("/users/profile");
             return res.data;
         },
+        enabled: !!localStorage.getItem("token"),
         retry: false
     })
     const isAuth = !isError && !!profile

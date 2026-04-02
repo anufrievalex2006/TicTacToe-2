@@ -7,9 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "../api/axiosInstance";
 import type { TokenResponse } from "../models/auth";
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const LoginPage = () => {
     const nav = useNavigate();
+    const queryClient = useQueryClient()
     const [serverError, setServerError] = useState<string | null>(null)
     const form = useForm<LoginFormValues>({
         defaultValues: ({
@@ -24,6 +26,9 @@ export const LoginPage = () => {
             const res = await api.post<TokenResponse>("/login", data)
             const token = res.data.token
             localStorage.setItem("token", token)
+            queryClient.invalidateQueries({
+                queryKey: ["profile"]
+            })
             nav("/")
         }
         catch (error: any) {
