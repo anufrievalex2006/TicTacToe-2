@@ -30,7 +30,7 @@ export const RegisterPage = () => {
         try {
             setServerError(null)
             const res = await api.post<TokenResponse>("/register", data)
-            const token = res.data.token;
+            const token = res.data.token
             localStorage.setItem("token", token)
             nav("/")
         }

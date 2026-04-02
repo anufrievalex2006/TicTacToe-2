@@ -22,7 +22,7 @@ export const LoginPage = () => {
         try {
             setServerError(null)
             const res = await api.post<TokenResponse>("/login", data)
-            const token = res.data.token;
+            const token = res.data.token
             localStorage.setItem("token", token)
             nav("/")
         }

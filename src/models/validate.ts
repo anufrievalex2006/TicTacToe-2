@@ -16,5 +16,16 @@ export const loginSchema = z.object({
     password: z.string().min(1, "Введите пароль")
 });
 
+export const profileSchema = z.object({
+    name: z.string().min(1, "Введите ФИО").max(100),
+    gender: z.enum(["MALE", "FEMALE"]),
+    birthday: z.string()
+        .refine((x) => !x || !isNaN(Date.parse(x)), {
+            error: "Некорректная дата рождения"
+        }),
+    nickname: z.string().min(1, "Введите никнейм").max(100),
+})
+
 export type RegisterFormValues = z.infer<typeof registerSchema>
 export type LoginFormValues = z.infer<typeof loginSchema>
+export type EditProfileFormValues = z.infer<typeof profileSchema>
