@@ -30,7 +30,8 @@ export const MainPage = () => {
     const chooseOpponent = () => {
         if (!user || allUsers.length === 0) return
 
-        setOpponent(allUsers[Math.floor(Math.random() * allUsers.length)])
+        const selected = allUsers[Math.floor(Math.random()*allUsers.length)]
+        setOpponent(selected)
         setModalOpened(true)
     }
     const start = () => {
@@ -38,6 +39,10 @@ export const MainPage = () => {
 
         setModalOpened(false)
         nav(`/practice?myId=${user.id}&contestantId=${opponent.id}`)
+    }
+    const closeModal = () => {
+        setModalOpened(false)
+        setOpponent(null)
     }
     return (
         <Box mih="100vh">
@@ -60,7 +65,7 @@ export const MainPage = () => {
                             </Stack>
                         </Paper>
                     </Container>
-                    <Modal title="Мы нашли Вам соперника!" centered size="md" opened={modalOpened} onClose={() => setModalOpened(false)}>
+                    <Modal title="Мы нашли Вам соперника!" centered size="md" opened={modalOpened} onClose={closeModal}>
                         {opponent && (
                             <Stack gap="lg">
                                 <Text size="lg" ta="center">
@@ -70,7 +75,7 @@ export const MainPage = () => {
                                     {opponent.name} (aka {opponent.nickname})
                                 </Text>
                                 <Group grow mt="md">
-                                    <Button variant="default" onClick={() => setModalOpened(false)}>Отмена</Button>
+                                    <Button variant="default" onClick={closeModal}>Отмена</Button>
                                     <Button color="orange" onClick={start}>Начать!</Button>
                                 </Group>
                             </Stack>
