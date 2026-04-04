@@ -33,7 +33,7 @@
 ### 1. Настроить Backend
 1) Клонировать репозиторий:
 ```bash
-git clone https://github.com/anufrievaex2006/TicTacToe-2.git
+git clone https://github.com/anufrievalex2006/TicTacToe-2.git
 cd TicTacToe-2/backend
 ```
 2) Настроить базу данных на PostgreSQL, создав таблицу "tictactoe" и указав данные в application.properties
