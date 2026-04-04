@@ -23,9 +23,11 @@
 - TanStack Query
 - Axios
 - Zod (валидация)
+
 **Backend**:
 - Java + Spring Boot
 - PostgreSQL
+
 **Дополнительно**:
 - Git
 
