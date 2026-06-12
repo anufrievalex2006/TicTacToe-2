@@ -42,7 +42,7 @@ jobs:
                 distribution: 'temurin'
             - name: Run OWASP Dependency Check
               working-directory: backend
-              run: .\mvnw dependency-check:check -DfailBuildOnCVSS=9
+              run: ./mvnw dependency-check:check -DfailBuildOnCVSS=9
             - name: Upload report
               if: always()
               uses: actions/upload-artifact@v4
