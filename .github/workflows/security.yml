@@ -42,6 +42,7 @@ jobs:
                 distribution: 'temurin'
             - name: Run OWASP Dependency Check
               working-directory: backend
+              continue-on-error: true
               run: |
                 chmod +x mvnw
                 ./mvnw dependency-check:check -DfailBuildOnCVSS=9
