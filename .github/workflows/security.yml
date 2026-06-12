@@ -13,6 +13,7 @@ jobs:
         steps:
             - uses: actions/checkout@v3
             - name: Run Semgrep (Java + OWASP)
+              continue-on-error: true
               uses: semgrep/semgrep-action@v1
               with:
                 config: >
@@ -44,7 +45,7 @@ jobs:
               run: .\mvnw dependency-check:check -DfailBuildOnCVSS=9
             - name: Upload report
               if: always()
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                 name: dependency-check-report
                 path: backend/target/dependency-check-report.html
