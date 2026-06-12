@@ -1,0 +1,11 @@
+rules:
+  - id: jwt-in-localstorage
+    pattern: localStorage.setItem("token", ...)
+    message: >
+      JWT token stored in localStorage is vulnerable to XSS attacks
+      Use httpOnly cookies instead
+    languages: [typescript, javascript]
+    severity: WARNING
+    metadata:
+      owasp: "A04:2025 - Cryptographic Failures"
+      cwe: "CWE-312: Cleartext Storage of Sensitive Information"
