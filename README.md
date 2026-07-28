@@ -40,11 +40,11 @@ cd TicTacToe-2
 ```
 ### 2. Настроить Backend
 1) Создайте базу данных "tictactoe" в PostgreSQL
-2) Настройте подключение к БД в src/main/resources/application.properties
-3) Запустите Backend. Можно через IntelliJ IDEA, а можно через командную строку:
+2) Скопируйте backend/src/main/resources/application-local.properties.example в backend/src/main/resources/application-local.properties и укажите там свои данные для подключения к БД
+3) Запустите Backend с активным профилем "local". Можно через IntelliJ IDEA - в настройках запуска (Run Configuration) добавьте "Active profiles: local". Либо можно через командную строку:
 ```bash
 cd backend
-mvnw spring-boot:run
+mvnw spring-boot:run -Dspring-boot.run.profiles=local
 ```
 Backend будет доступен по адресу http://localhost:8080
 ### 3. Настроить Frontend

@@ -1,0 +1,5 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/tictactoe
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+jwt.secret=change-me-to-any-random-string
+allowed.origin=http://localhost:5173
